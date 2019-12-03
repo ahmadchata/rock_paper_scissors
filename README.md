@@ -1,1 +1,1 @@
-Designing a classic rock, paper, scissors game using javascript.
+Designing a classic rock, paper, scissors game using javascript, use console for real-time results
