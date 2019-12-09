@@ -3,16 +3,25 @@
     <head>
         <link rel="stylesheet" href="style.css" type="text/css" />
         <meta charset="UTF-8">
-        <title>Rock, Paper, Scissors with console</title>
+        <title>Rock, Paper, Scissors</title>
     </head>
     <body>
-        <script src="script.js"></script>
-            <nav>
-            <h1>Rock, Paper, Scissors GAME</h1>
-            <button onclick="game()">START</button>
-            <p>You have 5 rounds, Goodluck!</p>
-            <p id="game"></p>
-            </nav>
-
+            <h1>Rock, Paper, Scissors Championship</h1>
+        <div class='results'>
+            <p id="playerScore">0</p>
+            <p id="computerScore">0</p>
+            <p id="playerName">Player</p>
+            <p id="computerName">Computer</p>
+            <div id="update">
+                    <p id="displayOne">Select either Rock, Paper or Scissors to begin</p>
+                    <p id="displayTwo">First to 5 wins!!!</p>
+                    </div>
+        </div>
+        <div class='btn'>
+            <div class='slct' id='rock'><img src=rock.png alt="rock"></div>
+            <div class='slct' id='paper'><img src=paper.png alt="paper"></div>
+            <div class='slct' id='scissors'><img src=scissors.png alt="scissors"></div>
+        </div>
+        <script src='script.js'></script>
     </body>
 </html>

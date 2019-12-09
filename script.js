@@ -1,80 +1,124 @@
-function computerPlay() {
-    let num = Math.floor(Math.random() * 3);
-    if (num == 0) {
-        return 'rock';
-    } else if (num == 1) {
-        return 'paper';
-    } else if (num == 2) {
-        return 'scissors';
-    } else {
-        return 'error';
-    }
+function addPlayerPoint() {
+	++playerScore;
+	if (playerScore >= 5) {
+		results2.textContent=`You win`;
+		playerScore=0;
+		computerScore=0;
+		playerDisplay.textContent=`${playerScore}`;
+		computerDisplay.textContent=`${computerScore}`;
+	} else {
+		playerDisplay.textContent=`${playerScore}`;
+	}
+	return;
 }
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection == 'rock') {
-        if (computerSelection == 'rock') {
-            console.log('It\'s a draw, computer chose Rock');
-            return 0;
-        }
-        if (computerSelection == 'paper') {
-        console.log('Computer chose paper, You Lose!');
-        return -1;
-    }
-    if (computerSelection == 'scissors') {
-        console.log('Computer chose scissors, You Win');
-        return 1;
-    }
-}
-if (playerSelection == 'paper') {
-        if (computerSelection == 'rock') {
-            console.log('Computer chose rock, you win');
-            return 1;
-        }
-        if (computerSelection == 'paper') {
-        console.log('Its\'s a draw, computer chose paper');
-        return 0;
-    }
-    if (computerSelection == 'scissors') {
-        console.log('Computer chose scissors, You Lose!');
-        return -1;
-    }
-}
-if (playerSelection == 'scissors') {
-        if (computerSelection == 'rock') {
-            console.log('Computer chose rock, You Lose!');
-            return -1;
-        }
-        if (computerSelection == 'paper') {
-        console.log('Computer chose paper, You Win!');
-        return 1;
-    }
-    if (computerSelection == 'scissors') {
-        console.log('It\'s a draw, computer chose scissors');
-        return 0;
-    }
-}
-    return 'error';
-}
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    while (computerScore < 3 && playerScore <3) {
-        let playerSelection = prompt('Rock, Paper or Scissors').toLowerCase();
-        let computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        if (result > 0) {
-            ++playerScore;
-        } else if (result < 0) {
-            ++computerScore;
-        }
-        console.log('Computer Score is ' + computerScore + ' Player Score is ' + playerScore);
 
-    }
-    if (computerScore > playerScore) {
-        document.getElementById('game').innerHTML = ('You lost the game, computer: ' + computerScore + ' Player: ' + playerScore);
-        return 0;
-    } else if (computerScore < playerScore) {
-        document.getElementById('game').innerHTML = ('You won the game, computer: ' + computerScore + ' Player: ' + playerScore);
-        return 0;
-    }
+function addComputerPoint() {
+	++computerScore;
+	if (computerScore >= 5) {
+		results2.textContent=`You lose`;
+		playerScore=0;
+		computerScore=0;
+		playerDisplay.textContent=`${playerScore}`;
+		computerDisplay.textContent=`${computerScore}`;
+	} else {
+		computerDisplay.textContent=`${computerScore}`;
+	}
+	return;
 }
+
+function computerPlay() {
+	let num = Math.floor(Math.random() * 3);
+	if (num == 0) {
+		return 'rock';
+	} else if (num == 1) {
+		return 'paper';
+	}
+	else if (num == 2) {
+		return 'scissors';
+	} else {
+		return 'error';
+	}
+}
+
+function playRound() {
+	this.classList.add('clicked');
+	computerSelection = computerPlay();
+	playerSelection = this.id;
+	if (playerSelection == 'rock') {
+		if (computerSelection == 'rock') {
+			results1.textContent='Computer throws rock.';
+			results2.textContent='Draw.';
+			return;
+		}
+		if (computerSelection == 'paper') {
+			results1.textContent='Computer throws paper.';
+			results2.textContent='Computer\'s point.';
+			addComputerPoint();
+			return;
+		}
+		if (computerSelection == 'scissors') {
+			results1.textContent='Computer throws scissors.';
+			results2.textContent='Your point.';
+			addPlayerPoint();
+			return;
+		}
+	}
+	if (playerSelection == 'paper') {
+		if (computerSelection == 'rock') {
+			results1.textContent='Computer throws rock.';
+			results2.textContent='Your point.';
+			addPlayerPoint();
+			return;
+		}
+		if (computerSelection == 'paper') {
+			results1.textContent='Computer throws paper.';
+			results2.textContent='Draw.';
+			return;
+		}
+		if (computerSelection == 'scissors') {
+			results1.textContent='Computer throws scissors.';
+			results2.textContent='Computer\'s point.';
+			addComputerPoint();
+			return;
+		}
+	}
+	if (playerSelection == 'scissors') {
+		if (computerSelection == 'rock') {
+			results1.textContent='Computer throws rock.';
+			results2.textContent='Computer\'s point.';
+			addComputerPoint();
+			return;
+		}
+		if (computerSelection == 'paper') {
+			results1.textContent='Computer throws paper.';
+			results2.textContent='Your point.';
+			addPlayerPoint();
+			return;
+		}
+		if (computerSelection == 'scissors') {
+			results1.textContent='Computer throws scissors.';
+			results2.textContent='Draw.';
+			return;
+		}
+	}
+	return 'error';
+}
+
+function removeTransition(e) {
+	if (e.propertyName !== 'transform') return; // skip if it's not a transform
+	this.classList.remove('clicked');
+}
+
+let computerScore=0;
+let playerScore=0;
+
+const div=document.querySelector('.results');
+const results1=document.querySelector('#displayOne');
+const results2=document.querySelector('#displayTwo');
+const playerDisplay=document.querySelector('#playerScore');
+const computerDisplay=document.querySelector('#computerScore');
+const butts = document.querySelectorAll('.slct');
+butts.forEach(slct => {
+    slct.addEventListener('click', playRound);
+});
+butts.forEach(slct => slct.addEventListener('transitionend', removeTransition));
