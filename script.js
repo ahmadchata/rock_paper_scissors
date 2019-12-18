@@ -118,7 +118,5 @@ const results2=document.querySelector('#displayTwo');
 const playerDisplay=document.querySelector('#playerScore');
 const computerDisplay=document.querySelector('#computerScore');
 const butts = document.querySelectorAll('.slct');
-butts.forEach(slct => {
-    slct.addEventListener('click', playRound);
-});
+butts.forEach(slct => slct.addEventListener('click', playRound));
 butts.forEach(slct => slct.addEventListener('transitionend', removeTransition));
